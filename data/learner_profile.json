@@ -1,0 +1,18 @@
+{
+  "skill_level": "Beginner",
+  "completed_topics": [
+    "Install & IDE",
+    "Lists & Tuples",
+    "Numbers & Strings",
+    "Hello World & Variables"
+  ],
+  "quiz_scores": [
+    {
+      "topic": "Install & IDE",
+      "correct": 5,
+      "total": 5,
+      "percent": 100.0
+    }
+  ],
+  "preferred_study_hours": 3
+}

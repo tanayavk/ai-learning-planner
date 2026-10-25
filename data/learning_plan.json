@@ -1,0 +1,86 @@
+{
+  "goal": "Python",
+  "duration_days": 5,
+  "tasks": [
+    {
+      "day": 1,
+      "title": "Install & IDE",
+      "description": "Install Python, set up VS Code or PyCharm, verify environment",
+      "estimated_hours": 1.5,
+      "id": 1,
+      "completed": true
+    },
+    {
+      "day": 1,
+      "title": "Hello World & Variables",
+      "description": "Write first script, learn print, comments, variable assignment, basic data types",
+      "estimated_hours": 1.5,
+      "id": 2,
+      "completed": true
+    },
+    {
+      "day": 2,
+      "title": "Numbers & Strings",
+      "description": "Explore numeric operations, string literals, concatenation, formatting",
+      "estimated_hours": 1.5,
+      "id": 3,
+      "completed": true
+    },
+    {
+      "day": 2,
+      "title": "Lists & Tuples",
+      "description": "Create, index, slice lists and tuples; basic methods",
+      "estimated_hours": 1.5,
+      "id": 4,
+      "completed": true
+    },
+    {
+      "day": 3,
+      "title": "Conditionals",
+      "description": "Use if, elif, else; boolean expressions; practice with simple problems",
+      "estimated_hours": 1.5,
+      "id": 5,
+      "completed": false
+    },
+    {
+      "day": 3,
+      "title": "Loops",
+      "description": "Write for and while loops, iterate over sequences, use break/continue",
+      "estimated_hours": 1.5,
+      "id": 6,
+      "completed": false
+    },
+    {
+      "day": 4,
+      "title": "Defining Functions",
+      "description": "Create functions, understand parameters, docstrings, call conventions",
+      "estimated_hours": 1.5,
+      "id": 7,
+      "completed": false
+    },
+    {
+      "day": 4,
+      "title": "Parameters & Return",
+      "description": "Work with positional, keyword arguments, return values, scope basics",
+      "estimated_hours": 1.5,
+      "id": 8,
+      "completed": false
+    },
+    {
+      "day": 5,
+      "title": "Project Planning",
+      "description": "Outline a small console app (e.g., calculator or todo list), design inputs and outputs",
+      "estimated_hours": 1.0,
+      "id": 9,
+      "completed": false
+    },
+    {
+      "day": 5,
+      "title": "Implementation",
+      "description": "Code the mini project, test, debug, and add simple enhancements",
+      "estimated_hours": 2.0,
+      "id": 10,
+      "completed": false
+    }
+  ]
+}
