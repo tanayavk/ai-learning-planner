@@ -20,7 +20,7 @@ import {
   submitQuiz 
 } from './api';
 
-import { Sparkles, AlertCircle, CheckCircle, ExternalLink, RefreshCw } from 'lucide-react';
+import { Sparkles, AlertCircle, CheckCircle, RefreshCw } from 'lucide-react';
 
 export default function App() {
   const [activeTab, setActiveTab] = useState('plan');
@@ -68,7 +68,6 @@ export default function App() {
   // API Action Handlers
   const handleGeneratePlan = async (goal, days, level, hours) => {
     const res = await generatePlan(goal, days, level, hours);
-    // Reload plan and profile
     const [pRes, plRes] = await Promise.all([fetchProfile(), fetchPlan()]);
     setProfileData(pRes);
     setPlanData(plRes);
@@ -79,7 +78,6 @@ export default function App() {
   const handleToggleTask = async (taskId, completed) => {
     try {
       await updateTask(taskId, completed);
-      // Reload both plan and profile data to keep counts in sync
       const [pRes, plRes] = await Promise.all([fetchProfile(), fetchPlan()]);
       setProfileData(pRes);
       setPlanData(plRes);
@@ -135,18 +133,23 @@ export default function App() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-slate-950 flex flex-col items-center justify-center text-slate-300 space-y-4">
-        <div className="w-12 h-12 border-4 border-indigo-500/20 border-t-indigo-500 rounded-full animate-spin" />
-        <p className="text-sm font-medium tracking-wide">Loading AI Learning Planner...</p>
+      <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center text-slate-700 space-y-4">
+        <div className="relative">
+          <div className="w-14 h-14 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin" />
+          <Sparkles className="w-6 h-6 text-indigo-600 absolute inset-0 m-auto animate-pulse" />
+        </div>
+        <p className="text-sm font-semibold tracking-wide text-slate-600">Loading AI Learning Planner...</p>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col selection:bg-indigo-500 selection:text-white relative">
+    <div className="min-h-screen bg-slate-50/60 bg-mesh-pattern text-slate-800 flex flex-col selection:bg-indigo-600 selection:text-white relative">
       
-      {/* Background glow accents */}
-      <div className="fixed top-0 left-1/2 -translate-x-1/2 w-[1000px] h-[350px] bg-gradient-to-b from-indigo-600/15 via-purple-600/5 to-transparent blur-3xl pointer-events-none -z-10" />
+      {/* Dynamic ambient color blooms */}
+      <div className="fixed top-0 left-1/4 w-96 h-96 bg-indigo-300/20 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="fixed top-20 right-1/4 w-96 h-96 bg-purple-300/20 rounded-full blur-3xl pointer-events-none -z-10" />
+      <div className="fixed bottom-20 left-1/3 w-96 h-96 bg-emerald-200/20 rounded-full blur-3xl pointer-events-none -z-10" />
 
       {/* Navigation */}
       <Navbar
@@ -160,19 +163,19 @@ export default function App() {
       {/* Floating Toast Notification */}
       {toast && (
         <div className="fixed bottom-6 right-6 z-50 animate-slide-up">
-          <div className={`px-4 py-3 rounded-xl shadow-2xl border text-sm font-semibold flex items-center gap-2.5 ${
+          <div className={`px-4 py-3 rounded-2xl shadow-xl border text-sm font-semibold flex items-center gap-2.5 bg-white/95 backdrop-blur-md ${
             toast.type === 'success' 
-              ? 'bg-emerald-950/90 border-emerald-500/50 text-emerald-200' 
+              ? 'border-emerald-300 text-emerald-800 shadow-emerald-500/10' 
               : toast.type === 'error'
-              ? 'bg-rose-950/90 border-rose-500/50 text-rose-200'
-              : 'bg-indigo-950/90 border-indigo-500/50 text-indigo-200'
+              ? 'border-rose-300 text-rose-800 shadow-rose-500/10'
+              : 'border-indigo-300 text-indigo-800 shadow-indigo-500/10'
           }`}>
             {toast.type === 'success' ? (
-              <CheckCircle className="w-4 h-4 text-emerald-400" />
+              <CheckCircle className="w-4 h-4 text-emerald-600" />
             ) : toast.type === 'error' ? (
-              <AlertCircle className="w-4 h-4 text-rose-400" />
+              <AlertCircle className="w-4 h-4 text-rose-600" />
             ) : (
-              <Sparkles className="w-4 h-4 text-indigo-400" />
+              <Sparkles className="w-4 h-4 text-indigo-600" />
             )}
             <span>{toast.message}</span>
           </div>
@@ -181,8 +184,8 @@ export default function App() {
 
       {/* Missing API Key Alert banner if needed */}
       {systemStatus && !systemStatus.api_key_configured && (
-        <div className="bg-amber-500/10 border-b border-amber-500/20 py-2.5 px-4 text-center text-xs sm:text-sm text-amber-300">
-          <span className="font-bold">⚠️ Warning:</span> GROQ_API_KEY is not detected in your <code className="bg-amber-500/20 px-1 py-0.5 rounded font-mono">.env</code> file. Add your Groq key to enable AI plan and quiz generation.
+        <div className="bg-amber-50 border-b border-amber-200 py-2.5 px-4 text-center text-xs sm:text-sm text-amber-900 font-medium">
+          <span className="font-bold">⚠️ Notice:</span> GROQ_API_KEY is not detected in your <code className="bg-amber-100 px-1.5 py-0.5 rounded font-mono text-amber-800">.env</code> file. Add your Groq API key to generate plans, notes, and quizzes with AI.
         </div>
       )}
 
@@ -232,22 +235,24 @@ export default function App() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-slate-800/80 bg-slate-900/60 py-6 mt-12">
+      <footer className="border-t border-slate-200/80 bg-white/70 backdrop-blur-md py-6 mt-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
           <div className="flex items-center gap-2">
-            <span>AI-Based Personal Learning & Task Planner</span>
-            <span>•</span>
-            <span className="text-slate-400 font-mono">v2.0 React</span>
+            <span className="font-semibold text-slate-700">AI Personal Learning & Task Planner</span>
+            <span className="text-slate-300">•</span>
+            <span className="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full font-bold text-[10px] border border-indigo-200">
+              v2.0 React
+            </span>
           </div>
 
           <div className="flex items-center gap-4">
-            <span className="flex items-center gap-1.5">
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            <span className="flex items-center gap-1.5 font-medium text-slate-600">
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               Powered by Groq Llama 3 & FastAPI
             </span>
             <button
               onClick={loadAllData}
-              className="text-slate-400 hover:text-slate-200 transition-colors flex items-center gap-1"
+              className="text-slate-500 hover:text-indigo-600 font-medium transition-colors flex items-center gap-1"
               title="Refresh all data"
             >
               <RefreshCw className="w-3.5 h-3.5" />

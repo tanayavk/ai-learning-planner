@@ -1,5 +1,5 @@
 {
-  "skill_level": "Beginner",
+  "skill_level": "Advanced",
   "completed_topics": [
     "Install & IDE",
     "Lists & Tuples",
@@ -14,5 +14,5 @@
       "percent": 100.0
     }
   ],
-  "preferred_study_hours": 3
+  "preferred_study_hours": 8
 }
