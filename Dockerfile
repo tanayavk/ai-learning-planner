@@ -33,8 +33,8 @@ COPY data ./data
 # Copy built frontend assets from stage 1
 COPY --from=frontend-builder /app/frontend/dist ./frontend/dist
 
-# Expose server port
+# Expose server port (defaults to 8000 or Render's $PORT)
 EXPOSE 8000
 
-# Start Uvicorn
-CMD ["uvicorn", "server:app", "--host", "0.0.0.0", "--port", "8000"]
+# Start Uvicorn dynamically binding to $PORT provided by Render (defaults to 8000)
+CMD ["sh", "-c", "uvicorn server:app --host 0.0.0.0 --port ${PORT:-8000}"]
